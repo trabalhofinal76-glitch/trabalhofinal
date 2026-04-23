@@ -1,44 +1,13 @@
 import { useState } from 'react';
 import './App.css';
 
+
 function App() {
+  const[confirmarsenha, setConfirmarsenha] = useState('');
   const [nome, setNome] = useState('');
-  const [cpf, setCpf] = useState('');
   const [datanascimento, setDatanascimento] = useState('');
   const [email, setEmail] = useState('');
 
-  function validaCPF(cpf) {
-    cpf = cpf.replace(/\D/g, '');
-
-    if (cpf.length !== 11) return false;
-
-    // Bloqueia CPFs repetidos
-    if (/^(\d)\1+$/.test(cpf)) return false;
-
-    let soma = 0;
-    let resto;
-
-    // Primeiro dígito
-    for (let i = 1; i <= 9; i++) {
-      soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-    }
-
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(9, 10))) return false;
-
-    // Segundo dígito
-    soma = 0;
-    for (let i = 1; i <= 10; i++) {
-      soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-    }
-
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(10, 11))) return false;
-
-    return true;
-  }
 
   function emailValido(email) {
     return (
@@ -51,7 +20,6 @@ function App() {
   function enviaDados() {
     if (
       nome.length > 2 &&
-      validaCPF(cpf) &&
       emailValido(email) &&
       datanascimento !== ''
     ) {
@@ -60,6 +28,24 @@ function App() {
       alert('Formulário inválido');
     }
   }
+
+ function validarSenha(senha) {
+  const requisitos = {
+    comprimento: senha.length >= 8,
+    maiuscula: /[A-Z]/.test(senha),
+    minuscula: /[a-z]/.test(senha),
+    numero: /[0-9]/.test(senha),
+    especial: /[!@#$%^&*(),.?":{}|<>]/.test(senha),
+  };
+
+  // Retorna true se todos os requisitos forem atendidos
+  return Object.values(requisitos).every(req => req === true);
+};
+function confirmarsenha(){
+  if validarSenha = confirmarsenha
+
+};
+
 
   return (
     <div className="container">
@@ -72,18 +58,17 @@ function App() {
         />
 
         <input
-          placeholder="CPF"
-          onChange={(e) => setCpf(e.target.value)}
-        />
-
-        <input
-          type="date"
+          type="date"s
           onChange={(e) => setDatanascimento(e.target.value)}
         />
 
         <input
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          placeholder="Crie uma senha forte"
+          onChange={(e) => validarSenha(e.target.value)}
         />
 
         <button onClick={enviaDados}>SALVAR</button>
