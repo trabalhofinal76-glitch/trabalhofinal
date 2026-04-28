@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
-
-function App() {
-  const[confirmarsenha, setConfirmarsenha] = useState('');
+function Cadastro() {
   const [nome, setNome] = useState('');
   const [datanascimento, setDatanascimento] = useState('');
   const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmarsenha, setConfirmarsenha] = useState('');
 
+  const navigate = useNavigate();
 
   function emailValido(email) {
     return (
@@ -17,35 +19,35 @@ function App() {
     );
   }
 
+  function validarSenha(senha) {
+    const requisitos = {
+      comprimento: senha.length >= 8,
+      maiuscula: /[A-Z]/.test(senha),
+      minuscula: /[a-z]/.test(senha),
+      numero: /[0-9]/.test(senha),
+      especial: /[!@#$%^&*(),.?":{}|<>]/.test(senha),
+    };
+
+    return Object.values(requisitos).every((req) => req === true);
+  }
+
   function enviaDados() {
     if (
       nome.length > 2 &&
       emailValido(email) &&
-      datanascimento !== ''
+      datanascimento !== '' &&
+      validarSenha(senha) &&
+      senha === confirmarsenha
     ) {
-      alert('Formulário enviado');
+      localStorage.setItem('email', email);
+      localStorage.setItem('senha', senha);
+
+      alert('Cadastro realizado!');
+      navigate('/login');
     } else {
-      alert('Formulário inválido');
+      alert('Dados inválidos ou senhas não coincidem');
     }
   }
-
- function validarSenha(senha) {
-  const requisitos = {
-    comprimento: senha.length >= 8,
-    maiuscula: /[A-Z]/.test(senha),
-    minuscula: /[a-z]/.test(senha),
-    numero: /[0-9]/.test(senha),
-    especial: /[!@#$%^&*(),.?":{}|<>]/.test(senha),
-  };
-
-  // Retorna true se todos os requisitos forem atendidos
-  return Object.values(requisitos).every(req => req === true);
-};
-function confirmarsenha(){
-  if validarSenha = confirmarsenha
-
-};
-
 
   return (
     <div className="container">
@@ -58,7 +60,7 @@ function confirmarsenha(){
         />
 
         <input
-          type="date"s
+          type="date"
           onChange={(e) => setDatanascimento(e.target.value)}
         />
 
@@ -66,15 +68,27 @@ function confirmarsenha(){
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
+
         <input
+          type="password"
           placeholder="Crie uma senha forte"
-          onChange={(e) => validarSenha(e.target.value)}
+          onChange={(e) => setSenha(e.target.value)}
+        />
+
+        <input
+          type="password"
+          placeholder="Confirmar senha"
+          onChange={(e) => setConfirmarsenha(e.target.value)}
         />
 
         <button onClick={enviaDados}>SALVAR</button>
+
+        <button onClick={() => navigate('/login')}>
+          Já tenho conta
+        </button>
       </div>
     </div>
   );
 }
 
-export default App;
+export default Cadastro;
