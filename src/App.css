@@ -5,7 +5,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg, #141e30, #243b55);
+  background: linear-gradient(135deg, #141e30, #e7e7e7);
 }
 
 .container {
@@ -15,7 +15,7 @@ body {
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(15px);
   padding: 40px;
   border-radius: 20px;
@@ -23,8 +23,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  color: white;
+  box-shadow: 0 20px 40px rgba(27, 26, 26, 0.4);
+  color: rgb(27, 26, 26);
 }
 
 .card h2 {
@@ -43,7 +43,7 @@ input {
 }
 
 input::placeholder {
-  color: #ddd;
+  color: white;
 }
 
 button {
@@ -51,7 +51,7 @@ button {
   border: none;
   border-radius: 10px;
   background: linear-gradient(135deg, #ff416c, #ff4b2b);
-  color: white;
+  color: whitesmoke;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;

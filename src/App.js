@@ -84,7 +84,7 @@ function Cadastro() {
         <button onClick={enviaDados}>SALVAR</button>
 
         <button onClick={() => navigate('/login')}>
-          Já tenho conta
+          JÁ TENHO CONTA
         </button>
       </div>
     </div>
