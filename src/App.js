@@ -4,7 +4,6 @@ import './App.css';
 
 function Cadastro() {
   const [nome, setNome] = useState('');
-  const [datanascimento, setDatanascimento] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarsenha, setConfirmarsenha] = useState('');
@@ -35,7 +34,6 @@ function Cadastro() {
     if (
       nome.length > 2 &&
       emailValido(email) &&
-      datanascimento !== '' &&
       validarSenha(senha) &&
       senha === confirmarsenha
     ) {
@@ -60,11 +58,6 @@ function Cadastro() {
         />
 
         <input
-          type="date"
-          onChange={(e) => setDatanascimento(e.target.value)}
-        />
-
-        <input
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -83,7 +76,7 @@ function Cadastro() {
 
         <button onClick={enviaDados}>SALVAR</button>
 
-        <button onClick={() => navigate('/login')}>
+        <button onClick={() => navigate('/')}>
           JÁ TENHO CONTA
         </button>
       </div>
